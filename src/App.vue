@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <!-- <DataTable1 /> -->
+      <DataTable />
     </v-main>
   </v-app>
 </template>
