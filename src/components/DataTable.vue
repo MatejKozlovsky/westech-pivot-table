@@ -1,57 +1,55 @@
 <template>
-  <v-container>
-    <v-table hover>
-      <thead>
-        <tr>
-          <th class="text-left"></th>
-          <th
-            v-for="storeName in data?.stores"
-            :key="storeName"
-            @click="chanageSorting(storeName)"
-          >
-            {{ storeName }}
-            <SortIcon
-              :selectedKey="selectedSorting.key"
-              :selectedOrder="selectedSorting.order"
-              :sortingKey="storeName"
-            />
-          </th>
-        </tr>
-        <tr>
-          <th style="padding-top: 20px">
-            <v-select
-              label="Category"
-              :items="data?.categories"
-              variant="outlined"
-              v-model="selectedCategory"
-            ></v-select>
-          </th>
-          <th v-for="storeName in data?.stores">
-            {{
-              Object.keys(data?.items[selectedCategory]).reduce(
-                (sum, productName) => {
-                  return (sum +=
-                    data?.items[selectedCategory][productName][storeName]);
-                },
-                0
-              )
-            }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="productName in getSortedProductsInCategory(selectedCategory)"
-          :key="productName"
+  <v-table hover>
+    <thead>
+      <tr>
+        <th class="text-left"></th>
+        <th
+          v-for="storeName in data?.stores"
+          :key="storeName"
+          @click="chanageSorting(storeName)"
         >
-          <td style="font-weight: bold">{{ productName }}</td>
-          <td v-for="storeName in data?.stores">
-            {{ data?.items[selectedCategory][productName][storeName] }}
-          </td>
-        </tr>
-      </tbody>
-    </v-table>
-  </v-container>
+          {{ storeName }}
+          <SortIcon
+            :selectedKey="selectedSorting.key"
+            :selectedOrder="selectedSorting.order"
+            :sortingKey="storeName"
+          />
+        </th>
+      </tr>
+      <tr>
+        <th style="padding-top: 20px">
+          <v-select
+            label="Category"
+            :items="data?.categories"
+            variant="outlined"
+            v-model="selectedCategory"
+          ></v-select>
+        </th>
+        <th v-for="storeName in data?.stores">
+          {{
+            Object.keys(data?.items[selectedCategory]).reduce(
+              (sum, productName) => {
+                return (sum +=
+                  data?.items[selectedCategory][productName][storeName]);
+              },
+              0
+            )
+          }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="productName in getSortedProductsInCategory(selectedCategory)"
+        :key="productName"
+      >
+        <td style="font-weight: bold">{{ productName }}</td>
+        <td v-for="storeName in data?.stores">
+          {{ data?.items[selectedCategory][productName][storeName] }}
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
 <script setup>
 import { ref, toRaw } from "vue";

@@ -1,8 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <!-- <DataTable1 /> -->
-      <DataTable />
+      <v-container>
+        <DataTable />
+      </v-container>
     </v-main>
   </v-app>
 </template>
